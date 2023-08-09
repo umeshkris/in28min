@@ -1,0 +1,47 @@
+Direct-URL's
+
+http://localhost:8000/currency-exchange/from/USD/to/INR  
+
+http://localhost:8100/currency-conversion/from/USD/to/INR/qty/5
+
+http://localhost:8100/currency-conversion-feign/from/USD/to/INR/qty/5
+
+http://localhost:8761/ -- Eureka
+
+http://localhost:8000/swagger-ui/index.html -swagger openapi-springdoc
+
+
+-------
+
+api gateway
+------------------------
+http://localhost:8765/get
+
+http://localhost:8765/CURRENCY-EXCHANGE/currency-exchange/from/USD/to/INR  request thrugh api gateway via eureka server lookup
+
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion/from/USD/to/INR/qty/10
+
+http://localhost:8765/CURRENCY-CONVERSION/currency-conversion-feign/from/USD/to/INR/qty/5
+
+---------------------
+
+Lower - service name 
+
+
+http://localhost:8765/ria-exchange/ria-exchange/from/USD/to/INR  request thrugh api gateway via eureka server lookup
+
+http://localhost:8765/currency-conversion/currency-conversion/from/USD/to/INR/qty/10
+
+http://localhost:8765/currency-conversion/currency-conversion-feign/from/USD/to/INR/qty/5
+
+
+-----------------------------------
+
+Custom Routing
+
+
+http://localhost:8765/ria-exchange/from/USD/to/INR
+
+http://localhost:8765/currency-conversion/from/USD/to/INR/qty/10
+
+http://localhost:8765/currency-conversion-feign/from/USD/to/INR/qty/5

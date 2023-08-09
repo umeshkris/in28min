@@ -1,0 +1,67 @@
+
+version: '3'
+
+services:
+  docker-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=restapi
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3309:3306
+    networks :
+     - currency-network   
+  
+  currency-exchange :
+         image: a725133/currencyexchange:1.0.0.SNAPSHOT
+         mem_limit: 700m
+         ports:
+            - 8000:8000
+         depends_on:
+            #- docker-mysql  
+            - eureka-service
+         networks :
+          - currency-network   
+         environment :
+            - EUREKA.CLIENT.SERVICEURL.DEFAULTZONE = http://eureka-service:8761/eureka
+            
+  currency-conversion-service :
+         image: a725133/currencyconversion:0.0.1-SNAPSHOT
+         mem_limit: 700m
+         ports:
+            - 8100:8100
+         depends_on:
+            #- docker-mysql  
+            - eureka-service
+         networks :
+          - currency-network   
+         environment :
+            - EUREKA.CLIENT.SERVICEURL.DEFAULTZONE = http://eureka-service:8761/eureka
+   
+   
+  api-gateway :
+         image: a725133/api-gateway:0.0.1-SNAPSHOT
+         mem_limit: 700m
+         ports:
+            - 8765:8765
+         depends_on:
+            #- docker-mysql  
+            - eureka-service
+         networks :
+          - currency-network   
+         environment :
+            - EUREKA.CLIENT.SERVICEURL.DEFAULTZONE = http://eureka-service:8761/eureka                    
+            
+            
+            
+                             
+  eureka-service :
+         image: a725133/eurekaservice:0.0.1-SNAPSHOT
+         mem_limit: 700m
+         ports:
+            - 8761:8761
+         networks :
+          - currency-network   
+networks :
+      currency-network:  
